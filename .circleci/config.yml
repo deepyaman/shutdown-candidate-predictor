@@ -3,8 +3,6 @@ jobs:
   build:
      docker:
        - image: circleci/python:3.7-buster-node-browsers
-     environment:
-       REQUIREMENTS: src/requirements.txt
      steps:
        - checkout
        - run:
@@ -15,7 +13,7 @@ jobs:
             pip install -U "pip>=18.0, <19.0" "setuptools>=38.0, <39.0" wheel
        - restore_cache:
           keys:
-            - pip-packages-v1-{{ '{{' }} checksum "${REQUIREMENTS}" {{ '}}' }}
+            - pip-packages-v1-{{ '{{' }} checksum "src/requirements.txt" {{ '}}' }}
             - pip-packages-v1-{{ '{{' }} .Branch {{ '}}' }}
             - pip-packages-v1-
        - run:
@@ -31,11 +29,11 @@ jobs:
           name: Install requirements
           command: |
             . venv/bin/activate
-            pip install -r ${REQUIREMENTS} -U
+            pip install -r src/requirements.txt -U
        - save_cache:
           paths:
             - ~/project/venv/
-          key: pip-packages-v1-{{ '{{' }} checksum "${REQUIREMENTS}" {{ '}}' }}
+          key: pip-packages-v1-{{ '{{' }} checksum "src/requirements.txt" {{ '}}' }}
        - run:
           name: Run flake8, isort, and black
           command: |
