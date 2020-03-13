@@ -305,14 +305,14 @@ def lint(files):
         raise KedroCliError(NO_DEPENDENCY_MESSAGE.format(exc.name))
 
     python_call("flake8", ("--max-line-length=88",) + files)
-    python_call("isort", ("-rc", "-tc", "-up", "-fgw=0", "-m=3", "-w=88") + files)
+    python_call("isort", ("-c", "-rc", "-tc", "-up", "-fgw=0", "-m=3", "-w=88") + files)
 
     if sys.version_info[:2] >= (3, 6):
         try:
             import black
         except ImportError:
             raise KedroCliError(NO_DEPENDENCY_MESSAGE.format("black"))
-        python_call("black", files)
+        python_call("black", ("--check", "--verbose") + files)
 
 
 @cli.command()
