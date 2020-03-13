@@ -293,7 +293,7 @@ def test(args):
 @cli.command()
 @click.argument("files", type=click.Path(exists=True), nargs=-1)
 def lint(files):
-    """Run flake8, isort and (on Python >=3.6) black."""
+    """Run flake8, isort, and (on Python >=3.6) black."""
     # pylint: disable=unused-import
     if not files:
         files = ("src/tests", "src/shutdown_candidate_predictor")
