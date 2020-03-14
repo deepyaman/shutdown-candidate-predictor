@@ -38,7 +38,7 @@ jobs:
           name: Run flake8, isort, and black
           command: |
             . venv/bin/activate
-            kedro lint
+            kedro lint --check-only
        - run:
           name: Run tests
           command: |
